@@ -1,0 +1,36 @@
+node_modules/
+.next/
+out/
+build/
+dist/
+coverage/
+
+# env — NUNCA versionar. Só o exemplo com placeholders.
+.env
+.env.*
+!.env.example
+
+# logs
+*.log
+npm-debug.log*
+
+# artefatos locais do fluxo DeepSeek: respostas brutas e snapshots pré-aplicação.
+# Rede de segurança da sessão (undo/reaplicar sem nova chamada), não conteúdo do projeto.
+.claude/skills/implement-with-deepseek/respostas/
+.claude/skills/implement-with-deepseek/snapshots/
+.claude/skills/implement-with-deepseek/usage.log
+.claude/settings.local.json
+
+# infra local
+docker-compose.override.yml
+
+# editors / OS
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# misc
+*.tsbuildinfo
+next-env.d.ts
+.vercel

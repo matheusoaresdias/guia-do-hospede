@@ -1,0 +1,28 @@
+{
+  "_leia_me": [
+    "Perfis de contexto: cada perfil é uma LISTA DE CAMINHOS relativos à raiz do repo,",
+    "lidos do disco a cada chamada pelo deepseek-client.mjs. Nunca duplicar fonte viva aqui",
+    "— apontar para o arquivo real, que continua sendo a única versão.",
+    "Perfis são combináveis: \"perfil\": [\"frontend\", \"teste\"].",
+    "Caminho repetido entre perfis é lido uma vez só.",
+    "Regra ao editar: perfil enxuto. O risco real não é custo, é diluir a instrução da",
+    "tarefa em boilerplate."
+  ],
+  "perfis": {
+    "base": [
+      "CLAUDE.md"
+    ],
+    "frontend": [
+      "ai/agents/frontend-engineer.md"
+    ],
+    "backend": [
+      "ai/agents/backend-engineer.md"
+    ],
+    "ia": [
+      "ai/agents/ai-engineer.md"
+    ],
+    "teste": [
+      "ai/agents/qa.md"
+    ]
+  }
+}

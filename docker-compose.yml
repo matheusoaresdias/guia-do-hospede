@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: guia-hospede-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: guia
+      POSTGRES_PASSWORD: guia
+      POSTGRES_DB: guia_hospede
+    # 55433 para não conflitar com uma instância de Postgres já rodando na 5432.
+    ports:
+      - '55433:5432'
+    volumes:
+      - guia-hospede-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U guia -d guia_hospede']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  guia-hospede-pgdata:
