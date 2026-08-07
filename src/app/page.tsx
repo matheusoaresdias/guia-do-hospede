@@ -7,10 +7,10 @@ export default async function Home() {
   return (
     <div className="flex flex-col flex-1 items-center justify-center">
       <main className="flex flex-1 w-full max-w-2xl flex-col items-center justify-center py-16 px-6 gap-8">
-        <h1 className="text-3xl font-semibold tracking-tight text-brand-700 dark:text-brand-300">
+        <h1 className="text-3xl font-semibold tracking-tight text-brand-700">
           Guia Digital do Hóspede
         </h1>
-        <p className="text-lg text-center text-warm-600 dark:text-warm-400 max-w-md">
+        <p className="text-lg text-center text-warm-600 max-w-md">
           Todas as informações do seu imóvel em um só lugar: WiFi, acesso,
           regras, experiências e um assistente virtual.
         </p>

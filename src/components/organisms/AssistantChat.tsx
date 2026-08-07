@@ -198,11 +198,11 @@ export function AssistantChat({ propertyCode }: AssistantChatProps) {
     >
       <h2
         id="assistant-heading"
-        className="text-2xl font-bold text-warm-900 dark:text-warm-100 mb-4"
+        className="text-2xl font-bold text-warm-900 mb-4"
       >
         💬 Assistente virtual
       </h2>
-      <p className="text-sm text-warm-600 dark:text-warm-400 mb-4">
+      <p className="text-sm text-warm-600 mb-4">
         Tire dúvidas sobre o imóvel, regras e recomendações do bairro.
       </p>
 
@@ -211,12 +211,12 @@ export function AssistantChat({ propertyCode }: AssistantChatProps) {
         ref={listRef}
         aria-live="polite"
         aria-label="Histórico de mensagens"
-        className="flex-1 space-y-3 mb-4 max-h-96 overflow-y-auto rounded-lg border border-warm-200 dark:border-warm-700 bg-warm-50 dark:bg-warm-900/30 p-4"
+        className="flex-1 space-y-3 mb-4 max-h-96 overflow-y-auto rounded-lg border border-warm-200 bg-warm-50 p-4"
       >
         {/* Estado vazio: perguntas sugeridas */}
         {messages.length === 0 && (
           <div className="space-y-2">
-            <p className="text-sm text-warm-500 dark:text-warm-400 mb-3">
+            <p className="text-sm text-warm-500 mb-3">
               O que você gostaria de saber?
             </p>
             <div className="flex flex-wrap gap-2">
@@ -226,7 +226,7 @@ export function AssistantChat({ propertyCode }: AssistantChatProps) {
                   type="button"
                   onClick={() => sendMessage(question)}
                   disabled={isStreaming}
-                  className="inline-block rounded-full border border-brand-300 dark:border-brand-600 bg-brand-50 dark:bg-brand-950/30 px-3 py-1.5 text-sm text-brand-700 dark:text-brand-300 hover:bg-brand-100 dark:hover:bg-brand-900/50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="inline-block rounded-full border border-brand-300 bg-brand-50 px-3 py-1.5 text-sm text-brand-700 hover:bg-brand-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {question}
                 </button>
@@ -260,14 +260,14 @@ export function AssistantChat({ propertyCode }: AssistantChatProps) {
         {/* Erro com opção de reenviar */}
         {streamError && (
           <div className="space-y-2 pt-1">
-            <p className="text-sm text-red-600 dark:text-red-400">
+            <p className="text-sm text-error">
               {streamError}
             </p>
             <button
               type="button"
               onClick={handleRetry}
               disabled={isStreaming}
-              className="text-sm text-brand-600 dark:text-brand-400 hover:underline disabled:opacity-50"
+              className="text-sm text-brand-600 hover:underline disabled:opacity-50"
             >
               Tentar novamente
             </button>
@@ -289,7 +289,7 @@ export function AssistantChat({ propertyCode }: AssistantChatProps) {
           onKeyDown={handleKeyDown}
           disabled={isStreaming}
           placeholder="Digite sua pergunta..."
-          className="flex-1 min-w-0 rounded-lg border border-warm-300 dark:border-warm-600 bg-white dark:bg-warm-900 px-4 py-3 text-base text-warm-900 dark:text-warm-100 placeholder:text-warm-400 dark:placeholder:text-warm-500 focus:outline-none focus:ring-2 focus:ring-brand-500 disabled:opacity-50"
+          className="flex-1 min-w-0 rounded-lg border border-warm-300 bg-white px-4 py-3 text-base text-warm-900 placeholder:text-warm-400 focus:outline-none focus:ring-2 focus:ring-brand-500 disabled:opacity-50"
           autoComplete="off"
         />
         <button

@@ -14,6 +14,16 @@ export default defineConfig({
     setupFiles: ['./vitest.setup.ts'],
   },
   resolve: {
-    alias: { '@': path.resolve(path.dirname(fileURLToPath(import.meta.url)), './src') },
+    alias: {
+      '@': path.resolve(path.dirname(fileURLToPath(import.meta.url)), './src'),
+      // O pacote 'server-only' lança fora do runtime de Server Component do Next
+      // (ver node_modules/server-only/index.js). O Next resolve para empty.js via
+      // a condição de export 'react-server', que o Vitest não declara — sem este
+      // alias, qualquer teste que importe um módulo server-only quebra.
+      'server-only': path.resolve(
+        path.dirname(fileURLToPath(import.meta.url)),
+        './node_modules/server-only/empty.js',
+      ),
+    },
   },
 });

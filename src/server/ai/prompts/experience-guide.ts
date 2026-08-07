@@ -96,3 +96,139 @@ TIPO DO IMÓVEL: ${property.property_type}
 CAPACIDADE DE HÓSPEDES: ${property.guest_capacity} pessoa(s)
 MÊS ATUAL: ${monthName}`;
 }
+
+// ---------------------------------------------------------------------------
+// Prompts para o modo grounded (com candidatos reais do OSM)
+// ---------------------------------------------------------------------------
+
+import type { GroundedCandidates } from '../../geo/poi-service';
+
+export function buildGroundedExperienceGuideSystemPrompt(): string {
+  return `Você é um concierge local que cria guias de experiências para hóspedes de imóveis de aluguel por temporada no Brasil.
+
+REGRAS INVOLÁVEIS:
+
+1. RESTRIÇÃO À LISTA DE CANDIDATOS REAIS — Você só pode escolher nomes que aparecem na lista de CANDIDATOS REAIS fornecida no prompt do usuário. É PROIBIDO incluir qualquer nome, endereço ou lugar fora dessa lista. Sua tarefa é selecionar os melhores candidatos de cada categoria e escrever \`description\`/\`distance\`/\`welcome_message\`/\`seasonal_tip\` — nunca inventar um candidato novo.
+2. NA DÚVIDA, OMITA. Se a lista não tiver candidatos suficientes para preencher as cardinalidades, devolva APENAS os que estão na lista — nunca preencha com nomes inventados.
+3. Distâncias devem ser aproximadas e SEMPRE prefixadas com "Aprox." (ex: "Aprox. 800 m", "Aprox. 2,5 km"). A distância real em metros está fornecida na lista de candidatos — converta para o formato legível (m ou km) com o prefixo.
+4. Tom acolhedor, em segunda pessoa, dirigido ao hóspede. Não é copy de marketing — seja útil e direto.
+5. Responda SOMENTE com o objeto JSON descrito abaixo. Sem cercas de código (\`\`\`), sem comentários, sem texto fora do JSON.
+
+ESQUEMA DO JSON DE SAÍDA:
+
+{
+  "welcome_message": "string — mensagem de boas-vindas personalizada com o nome da cidade/bairro e uma sugestão amigável para a estadia",
+  "restaurants": [
+    {
+      "name": "string — nome real do estabelecimento (copiado exatamente da lista)",
+      "distance": "string — 'Aprox. X m/km'",
+      "description": "string — 1 a 2 frases sobre o tipo de culinária e o que destaca o lugar"
+    }
+  ],
+  "attractions": [
+    {
+      "name": "string — nome real do ponto turístico/atração (copiado exatamente da lista)",
+      "distance": "string — 'Aprox. X m/km'",
+      "description": "string — 1 a 2 frases sobre o que torna o lugar interessante"
+    }
+  ],
+  "essentials": [
+    {
+      "name": "string — nome real (copiado exatamente da lista)",
+      "distance": "string — 'Aprox. X m/km'",
+      "description": "string — breve descrição do que oferece",
+      "type": "pharmacy | supermarket | hospital | other"
+    }
+  ],
+  "seasonal_tip": "string — dica sazonal relevante para a época do ano atual (clima, eventos, o que levar, etc.)"
+}
+
+CARDINALIDADES EXIGIDAS:
+- restaurants: no MÍNIMO 4, no MÁXIMO 5 itens.
+- attractions: no MÍNIMO 3, no MÁXIMO 4 itens.
+- essentials: no MÍNIMO 1 item. Deve incluir OBRIGATORIAMENTE ao menos uma farmácia, um supermercado e um hospital/pronto-atendimento (cada um com type correspondente). Pode incluir outros essenciais com type "other".
+- seasonal_tip: exatamente 1 string não vazia.`;
+}
+
+export function buildGroundedExperienceGuideUserPrompt(
+  property: Property,
+  candidates: GroundedCandidates,
+  now: Date = new Date(),
+): string {
+  const monthNames = [
+    'janeiro',
+    'fevereiro',
+    'março',
+    'abril',
+    'maio',
+    'junho',
+    'julho',
+    'agosto',
+    'setembro',
+    'outubro',
+    'novembro',
+    'dezembro',
+  ];
+
+  const monthName = monthNames[now.getMonth()];
+  const addr = property.address;
+
+  const fullAddress = [
+    addr.street,
+    addr.number,
+    addr.complement,
+    addr.neighborhood,
+  ]
+    .filter(Boolean)
+    .join(', ');
+
+  const lines: string[] = [];
+
+  lines.push(`Crie o guia de experiências para o seguinte imóvel:
+
+CIDADE/ESTADO: ${addr.city}, ${addr.state}
+BAIRRO: ${addr.neighborhood}
+ENDEREÇO COMPLETO: ${fullAddress} — CEP ${addr.postal_code}
+TIPO DO IMÓVEL: ${property.property_type}
+CAPACIDADE DE HÓSPEDES: ${property.guest_capacity} pessoa(s)
+MÊS ATUAL: ${monthName}
+
+CANDIDATOS REAIS (escolha somente entre estes, com a distância já calculada em metros — converta para "Aprox. X m" ou "Aprox. X,X km"):`);
+
+  // Restaurantes
+  lines.push('\nRESTAURANTES:');
+  for (const r of candidates.restaurants) {
+    const distM = Math.round(r.distance_m);
+    lines.push(`- ${r.name} (${distM} m)`);
+  }
+
+  // Atrações
+  lines.push('\nATRAÇÕES:');
+  for (const a of candidates.attractions) {
+    const distM = Math.round(a.distance_m);
+    lines.push(`- ${a.name} (${distM} m)`);
+  }
+
+  // Farmácias
+  lines.push('\nFARMÁCIAS:');
+  for (const p of candidates.pharmacies) {
+    const distM = Math.round(p.distance_m);
+    lines.push(`- ${p.name} (${distM} m)`);
+  }
+
+  // Supermercados
+  lines.push('\nSUPERMERCADOS:');
+  for (const s of candidates.supermarkets) {
+    const distM = Math.round(s.distance_m);
+    lines.push(`- ${s.name} (${distM} m)`);
+  }
+
+  // Hospitais
+  lines.push('\nHOSPITAIS:');
+  for (const h of candidates.hospitals) {
+    const distM = Math.round(h.distance_m);
+    lines.push(`- ${h.name} (${distM} m)`);
+  }
+
+  return lines.join('\n');
+}

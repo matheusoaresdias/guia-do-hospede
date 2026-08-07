@@ -23,30 +23,30 @@ export function GuidebookTemplate({
       >
         <a
           href="#access-heading"
-          className="text-brand-600 dark:text-brand-400 hover:underline"
+          className="text-brand-600 hover:underline"
         >
           Acesso
         </a>
-        <span className="text-warm-300 dark:text-warm-600" aria-hidden="true">
+        <span className="text-warm-300" aria-hidden="true">
           ·
         </span>
         <a
           href="#rules-heading"
-          className="text-brand-600 dark:text-brand-400 hover:underline"
+          className="text-brand-600 hover:underline"
         >
           Regras
         </a>
         {experienceSlot && (
           <>
             <span
-              className="text-warm-300 dark:text-warm-600"
+              className="text-warm-300"
               aria-hidden="true"
             >
               ·
             </span>
             <a
               href="#experience-heading"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-brand-600 hover:underline"
             >
               Experiências
             </a>
@@ -55,25 +55,25 @@ export function GuidebookTemplate({
         {assistantSlot && (
           <>
             <span
-              className="text-warm-300 dark:text-warm-600"
+              className="text-warm-300"
               aria-hidden="true"
             >
               ·
             </span>
             <a
               href="#assistant-heading"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-brand-600 hover:underline"
             >
               Assistente
             </a>
           </>
         )}
-        <span className="text-warm-300 dark:text-warm-600" aria-hidden="true">
+        <span className="text-warm-300" aria-hidden="true">
           ·
         </span>
         <a
           href="#contact-heading"
-          className="text-brand-600 dark:text-brand-400 hover:underline"
+          className="text-brand-600 hover:underline"
         >
           Contato
         </a>

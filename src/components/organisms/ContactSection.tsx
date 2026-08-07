@@ -24,14 +24,14 @@ export function ContactSection({ property }: ContactSectionProps) {
       <SectionTitle id="contact-heading">Contato</SectionTitle>
 
       <div>
-        <h3 className="text-base font-medium text-warm-800 dark:text-warm-200 mb-3">
+        <h3 className="text-base font-medium text-warm-800 mb-3">
           Anfitrião
         </h3>
         <HostCard name={host.name} phone={host.phone} />
       </div>
 
       <div>
-        <h3 className="text-base font-medium text-warm-800 dark:text-warm-200 mb-3">
+        <h3 className="text-base font-medium text-warm-800 mb-3">
           Endereço
         </h3>
         <CopyableValue value={fullAddress} label="Endereço completo" />

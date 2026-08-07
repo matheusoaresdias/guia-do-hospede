@@ -25,6 +25,7 @@ Antes de **planejar ou implementar** em uma área abaixo, ler o(s) arquivo(s) in
 | Componentes, layout, responsividade, Atomic Design | `ai/agents/frontend-engineer.md` |
 | Schema, migrations, repositórios, route handlers, persistência | `ai/agents/backend-engineer.md` |
 | Prompt, system prompt, geração do guia, chat, tratamento de falha da IA | `ai/agents/ai-engineer.md` |
+| Geocode, POIs, enriquecimento com dados externos (`src/server/geo/`) | `ai/agents/ai-engineer.md` (fluxo) — schema de `property_pois` em `ai/agents/backend-engineer.md` |
 | Testes, critérios de aceite, edge cases | `ai/agents/qa.md` |
 
 Fontes vivas (nunca duplicar — consultar direto): schema em `src/server/db/schema.ts`;

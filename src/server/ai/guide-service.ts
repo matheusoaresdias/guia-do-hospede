@@ -3,6 +3,8 @@ import { getLlmProvider, LlmError } from './provider';
 import {
   buildExperienceGuideSystemPrompt,
   buildExperienceGuideUserPrompt,
+  buildGroundedExperienceGuideSystemPrompt,
+  buildGroundedExperienceGuideUserPrompt,
 } from './prompts/experience-guide';
 import {
   experienceGuideSchema,
@@ -15,6 +17,7 @@ import {
   insertGuideIfAbsent,
   replaceGuide,
 } from '../repositories/guides';
+import { getGroundedCandidates } from '../geo/poi-service';
 
 // ---------------------------------------------------------------------------
 // Tipos de resultado
@@ -58,10 +61,20 @@ export async function getOrCreateExperienceGuide(
     return { ok: true, guide: existing.content, generated: false };
   }
 
-  // 2. Tenta gerar (com até 1 retry em caso de JSON inválido)
+  // 2. Busca candidatos grounded (OSM)
+  const groundedCandidates = await getGroundedCandidates(property);
+  const source = groundedCandidates ? 'osm' : 'llm';
+
+  // 3. Monta prompts condicionais
+  const systemPrompt = groundedCandidates
+    ? buildGroundedExperienceGuideSystemPrompt()
+    : buildExperienceGuideSystemPrompt();
+  const userPrompt = groundedCandidates
+    ? buildGroundedExperienceGuideUserPrompt(property, groundedCandidates)
+    : buildExperienceGuideUserPrompt(property);
+
+  // 4. Tenta gerar (com até 1 retry em caso de JSON inválido)
   const provider = getLlmProvider();
-  const systemPrompt = buildExperienceGuideSystemPrompt();
-  const userPrompt = buildExperienceGuideUserPrompt(property);
 
   let lastValidationError: string | null = null;
 
@@ -89,9 +102,9 @@ export async function getOrCreateExperienceGuide(
 
         let record: Awaited<ReturnType<typeof insertGuideIfAbsent>>;
         if (existing) {
-          record = await replaceGuide(property.id, parsed.data, model, season);
+          record = await replaceGuide(property.id, parsed.data, model, season, source);
         } else {
-          record = await insertGuideIfAbsent(property.id, parsed.data, model, season);
+          record = await insertGuideIfAbsent(property.id, parsed.data, model, season, source);
         }
 
         return { ok: true, guide: record.content, generated: true };

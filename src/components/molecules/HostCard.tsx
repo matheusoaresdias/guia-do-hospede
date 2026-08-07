@@ -10,7 +10,7 @@ export function HostCard({ name, phone }: HostCardProps) {
 
   return (
     <div className="space-y-2">
-      <p className="text-lg font-medium text-warm-900 dark:text-warm-100">
+      <p className="text-lg font-medium text-warm-900">
         {name}
       </p>
       <div className="flex flex-wrap gap-3">
@@ -20,6 +20,7 @@ export function HostCard({ name, phone }: HostCardProps) {
         >
           {displayPhone}
         </a>
+        {/* Verde do WhatsApp, não da paleta Seazone — é reconhecimento de marca do botão */}
         <a
           href={`https://wa.me/${whatsappNumber}`}
           target="_blank"

@@ -8,10 +8,10 @@ export const metadata: Metadata = {
 export default function PropertyNotFound() {
   return (
     <main className="flex flex-col flex-1 items-center justify-center px-6 py-16 gap-6 text-center">
-      <h1 className="text-2xl font-semibold text-warm-800 dark:text-warm-200">
+      <h1 className="text-2xl font-semibold text-warm-800">
         Imóvel não encontrado
       </h1>
-      <p className="text-warm-600 dark:text-warm-400 max-w-md">
+      <p className="text-warm-600 max-w-md">
         Não encontramos um guia para o código informado. Verifique se o código
         está correto e tente novamente.
       </p>

@@ -15,7 +15,7 @@ export function PolicyRow({
 }: PolicyRowProps) {
   return (
     <div className="flex items-center justify-between py-2 gap-4">
-      <span className="text-base text-warm-900 dark:text-warm-100">
+      <span className="text-base text-warm-900">
         {label}
       </span>
       <Badge variant={allowed ? "positivo" : "negativo"}>

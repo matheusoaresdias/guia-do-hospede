@@ -4,6 +4,7 @@ import { findPropertyByCode } from '@/server/repositories/properties';
 import { findGuideByPropertyId } from '@/server/repositories/guides';
 import { buildAssistantSystemPrompt } from '@/server/ai/prompts/assistant';
 import { getLlmProvider, LlmError } from '@/server/ai/provider';
+import { checkRateLimit, getClientIp } from '@/server/rate-limit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -26,6 +27,25 @@ export async function POST(
   { params }: { params: Promise<{ code: string }> },
 ) {
   const { code } = await params;
+
+  // Rate limit: 10 mensagens/minuto por IP (antes de tocar o banco)
+  const clientIp = getClientIp(request);
+  const rl = checkRateLimit(clientIp);
+  if (!rl.allowed) {
+    return NextResponse.json(
+      {
+        error: {
+          code: 'RATE_LIMITED',
+          message:
+            'Muitas mensagens em pouco tempo. Aguarde um instante antes de enviar outra.',
+        },
+      },
+      {
+        status: 429,
+        headers: { 'Retry-After': String(rl.retryAfterSeconds) },
+      },
+    );
+  }
 
   // 1. Busca o imóvel
   const property = await findPropertyByCode(code);

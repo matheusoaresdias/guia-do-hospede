@@ -7,11 +7,11 @@ interface BadgeProps {
 
 const variantStyles: Record<BadgeVariant, string> = {
   neutro:
-    "bg-warm-200 text-warm-800 dark:bg-warm-700 dark:text-warm-200",
+    "bg-warm-200 text-warm-800",
   positivo:
-    "bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100",
+    "bg-success-soft text-success",
   negativo:
-    "bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100",
+    "bg-error-soft text-error",
 };
 
 export function Badge({ children, variant = "neutro" }: BadgeProps) {

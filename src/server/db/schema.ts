@@ -5,6 +5,7 @@ import {
   integer,
   jsonb,
   timestamp,
+  doublePrecision,
 } from 'drizzle-orm/pg-core';
 import type {
   Address,
@@ -15,6 +16,7 @@ import type {
   Host,
 } from '../../domain/property';
 import type { ExperienceGuide } from '../../domain/experience-guide';
+import type { RawPoiCandidate } from '../geo/overpass';
 
 /** Tabela de imóveis */
 export const properties = pgTable('properties', {
@@ -43,7 +45,23 @@ export const experienceGuides = pgTable('experience_guides', {
   content: jsonb('content').notNull().$type<ExperienceGuide>(),
   model: text('model').notNull(),
   season: text('season').notNull(),
+  source: text('source').notNull().default('llm'),
   generated_at: timestamp('generated_at', { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+/** Cache permanente de geocode + POIs do OpenStreetMap por imóvel */
+export const propertyPois = pgTable('property_pois', {
+  id: serial('id').primaryKey(),
+  property_id: integer('property_id')
+    .notNull()
+    .unique()
+    .references(() => properties.id, { onDelete: 'cascade' }),
+  lat: doublePrecision('lat').notNull(),
+  lon: doublePrecision('lon').notNull(),
+  pois: jsonb('pois').notNull().$type<RawPoiCandidate[]>(),
+  fetched_at: timestamp('fetched_at', { withTimezone: true })
     .notNull()
     .defaultNow(),
 });

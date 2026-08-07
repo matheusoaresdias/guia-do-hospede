@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  DATABASE_URL: postgres://postgres:postgres@localhost:5432/guia_hospede_ci
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: guia_hospede_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npx eslint .
+
+      - name: Testes
+        run: npm test
+
+      # npm run build prerenderiza "/" estaticamente, e essa página chama
+      # listPropertyCodes() — precisa de um Postgres alcançável de verdade,
+      # não só uma DATABASE_URL sintática (diferente dos testes, que mockam
+      # o repositório). Migration + seed rodam contra o service acima antes
+      # do build para o build ver os 3 imóveis reais, não o estado vazio.
+      - name: Migrar banco
+        run: npm run db:migrate
+
+      - name: Popular seed
+        run: npm run db:seed
+
+      - name: Build
+        run: npm run build

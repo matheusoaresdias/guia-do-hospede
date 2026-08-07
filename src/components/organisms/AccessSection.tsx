@@ -16,7 +16,7 @@ export function AccessSection({ property }: AccessSectionProps) {
       <SectionTitle id="access-heading">Acesso</SectionTitle>
 
       <div>
-        <h3 className="text-base font-medium text-warm-800 dark:text-warm-200 mb-3">
+        <h3 className="text-base font-medium text-warm-800 mb-3">
           WiFi
         </h3>
         <WifiCard
@@ -26,7 +26,7 @@ export function AccessSection({ property }: AccessSectionProps) {
       </div>
 
       <div>
-        <h3 className="text-base font-medium text-warm-800 dark:text-warm-200 mb-3">
+        <h3 className="text-base font-medium text-warm-800 mb-3">
           Entrada
         </h3>
         <CopyableValue
@@ -37,13 +37,13 @@ export function AccessSection({ property }: AccessSectionProps) {
               : "Código do cofre"
           }
         />
-        <p className="mt-3 text-sm text-warm-600 dark:text-warm-400">
+        <p className="mt-3 text-sm text-warm-600">
           {operational.property_access_instructions}
         </p>
       </div>
 
       <div>
-        <h3 className="text-base font-medium text-warm-800 dark:text-warm-200 mb-3">
+        <h3 className="text-base font-medium text-warm-800 mb-3">
           Estacionamento
         </h3>
         {operational.has_parking_spot ? (
@@ -55,13 +55,13 @@ export function AccessSection({ property }: AccessSectionProps) {
               />
             )}
             {operational.parking_spot_instructions && (
-              <p className="text-sm text-warm-600 dark:text-warm-400">
+              <p className="text-sm text-warm-600">
                 {operational.parking_spot_instructions}
               </p>
             )}
           </div>
         ) : (
-          <p className="text-sm text-warm-500 dark:text-warm-400">
+          <p className="text-sm text-warm-500">
             Este imóvel não possui vaga de estacionamento.
           </p>
         )}

@@ -9,6 +9,7 @@ export type GuideRecord = {
   content: ExperienceGuide;
   model: string;
   season: string;
+  source: string;
   generated_at: Date;
 };
 
@@ -24,6 +25,7 @@ export async function findGuideByPropertyId(
       content: experienceGuides.content,
       model: experienceGuides.model,
       season: experienceGuides.season,
+      source: experienceGuides.source,
       generated_at: experienceGuides.generated_at,
     })
     .from(experienceGuides)
@@ -37,6 +39,7 @@ export async function findGuideByPropertyId(
     content: row.content as ExperienceGuide,
     model: row.model,
     season: row.season,
+    source: row.source,
     generated_at: row.generated_at,
   };
 }
@@ -49,7 +52,8 @@ export async function insertGuideIfAbsent(
   propertyId: number,
   content: ExperienceGuide,
   model: string,
-  season: string
+  season: string,
+  source: string,
 ): Promise<GuideRecord> {
   const result = await db
     .insert(experienceGuides)
@@ -58,6 +62,7 @@ export async function insertGuideIfAbsent(
       content,
       model,
       season,
+      source,
     })
     .onConflictDoNothing()
     .returning();
@@ -68,6 +73,7 @@ export async function insertGuideIfAbsent(
       content: row.content as ExperienceGuide,
       model: row.model,
       season: row.season,
+      source: row.source,
       generated_at: row.generated_at,
     };
   }
@@ -89,7 +95,8 @@ export async function replaceGuide(
   propertyId: number,
   content: ExperienceGuide,
   model: string,
-  season: string
+  season: string,
+  source: string,
 ): Promise<GuideRecord> {
   await db
     .delete(experienceGuides)
@@ -102,6 +109,7 @@ export async function replaceGuide(
       content,
       model,
       season,
+      source,
     })
     .returning();
 
@@ -110,6 +118,7 @@ export async function replaceGuide(
     content: row.content as ExperienceGuide,
     model: row.model,
     season: row.season,
+    source: row.source,
     generated_at: row.generated_at,
   };
 }

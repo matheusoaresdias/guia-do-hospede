@@ -86,6 +86,19 @@ notoriedade** — "um morador da cidade reconheceria esse nome?" — e instrui e
 omitir em vez de completar cota: *"melhor devolver 4 restaurantes que existem do que 5 com um
 inventado"*.
 
+**Grounding com dados reais (`src/server/geo/`).** Antes de montar o prompt, o serviço tenta
+fundamentar o guia em dados geográficos verificáveis: geocodifica o endereço do imóvel via
+**Nominatim** (cache permanente por imóvel) e busca restaurantes/atrações/farmácias/
+mercados/hospitais num raio de 2 km via **Overpass API** (OpenStreetMap), com a distância real
+calculada por Haversine — sem chave, sem billing. O LLM deixa de *escolher e descrever* lugares
+para só *descrever* os que essa lista real forneceu; o prompt proíbe qualquer nome fora dela.
+
+Se a cobertura do OSM não atingir os mínimos do schema (4 restaurantes, 3 atrações, os 3
+essenciais) — endereço que não geocodifica, ou bairro pouco mapeado numa categoria — o sistema
+cai no caminho antigo (só o teste de notoriedade) em vez de forçar um guia incompleto. Cada guia
+persistido guarda `source: 'osm' | 'llm'`, para saber honestamente qual caminho gerou o quê. Ver
+[Limitação conhecida](#limitação-conhecida) para o que isso significa na prática hoje.
+
 ### Assistente virtual
 
 Streaming real: o texto aparece progressivamente porque o handler devolve um `ReadableStream`
@@ -150,22 +163,28 @@ O plano de execução, com os pontos de decisão apresentados antes de implement
 
 ## Limitação conhecida
 
-**Os restaurantes sugeridos não são verificados contra uma fonte externa.** O guia usa o
-conhecimento do modelo com um prompt restritivo, e o resultado é desigual por categoria:
+**O grounding depende de o endereço geocodificar e de o OSM ter cobertura na categoria — quando
+falta um dos dois, o guia volta a vir só do modelo.** Testado contra os serviços reais (Nominatim
++ Overpass, não mockados) nos três imóveis do seed:
 
-- **Atrações e serviços essenciais saem consistentemente reais** — Rua Coberta, Lago Negro e
-  Mini Mundo em Gramado; Lagoa da Conceição, UFSC, Mercado Público e Hospital Universitário em
-  Florianópolis.
-- **Restaurantes são o ponto fraco, e a taxa de acerto varia entre gerações.** Em algumas o
-  modelo traz casas reais e reconhecíveis (Box 32, Armazém Vieira); em outras a maioria dos
-  nomes é plausível e inventada. Endurecer o prompt melhorou, mas não resolveu — inclusive
-  porque listar exemplos de nomes inventados acabou ancorando o modelo neles.
+- **FLN001 gera com `source: 'osm'`** — o endereço geocodifica e o Overpass devolve mais de 100
+  candidatos reais num raio de 2 km (dezenas de restaurantes, farmácias, mercados, hospitais).
+  Os nomes e distâncias no guia (ex. "Trindog — Aprox. 89 m") vêm direto dessa lista, não do
+  modelo.
+- **GRM001 e UBA001 caem no fallback (`source: 'llm'`)** porque as ruas do seed ("Rua das
+  Hortênsias, 220"; "Rua da Praia Grande, 1450") não existem no índice do Nominatim — confirmado
+  testando uma rua real das mesmas cidades (Rua Coberta, em Gramado, geocodifica normalmente).
+  Não é falta de cobertura da cidade, é o endereço do imóvel de teste ser fictício. Com endereço
+  real, o mesmo pipeline que funciona para FLN001 se aplica.
+- Mesmo com geocode bem-sucedido, uma categoria pouco mapeada localmente (ex. `tourism=*`
+  esparso no bairro) pode ficar abaixo do mínimo do schema — nesse caso o sistema também cai no
+  fallback em vez de forçar um guia incompleto, em vez de misturar dado real com inventado.
 
-É o principal débito técnico do projeto e foi uma decisão consciente de escopo, não um
-descuido: validar cada lugar contra a Google Places API resolveria, ao custo de mais uma
-credencial, billing e um ponto de falha. O schema de saída já está desenhado para isso — cada
-lugar é um objeto isolado, então a evolução é filtrar a lista contra a Places antes de
-persistir, descartando o que não resolver.
+Continua sendo uma decisão consciente de escopo, não um descuido: nenhum guia mistura lugar real
+com inventado dentro da mesma resposta — ou vem inteiro fundamentado no OSM, ou inteiro do teste
+de notoriedade do modelo. A evolução natural é reforçar o geocode (ex. tentar sem número, ou por
+CEP, antes de desistir) e ampliar as tags de categoria por cidade conforme a cobertura do OSM
+local for testada.
 
 ## Como este projeto foi construído
 

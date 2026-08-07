@@ -50,6 +50,17 @@ O que resolve o problema do hóspede vem primeiro, não o que é bonito:
   indicador), erro (mantém o que já chegou).
 - **Imóvel inexistente**: `src/app/[code]/not-found.tsx` — mensagem amigável, explica que o
   código pode estar errado, e não expõe stack nem jargão técnico.
+- **Erro inesperado do servidor**: `src/app/error.tsx` (error boundary do app, abaixo do root
+  layout) e `src/app/global-error.tsx` (quando o próprio root layout falha — define seus
+  próprios `<html>`/`<body>` e importa `globals.css` explicitamente, porque não herda o layout
+  que está substituindo). Os dois são Client Components e usam a prop `retry()` do Next 16.3
+  (não `reset()` — checar `node_modules/next/dist/docs/.../error.md` antes de mexer, é uma API
+  que mudou entre versões). Mesmo vocabulário visual do `not-found.tsx`.
+- **Carregamento de `/[code]`**: `src/app/[code]/loading.tsx` — Server Component sem props,
+  esqueleto fiel à forma real do `GuidebookTemplate` (hero, acesso, regras, contato) com o
+  átomo `Skeleton`, para cobrir o cold start do banco sem pular o layout quando o conteúdo
+  real chega. Não cobre as seções de Experiências/Chat — essas já têm o próprio estado de
+  carregando client-side, listado acima.
 
 ## Tailwind v4
 

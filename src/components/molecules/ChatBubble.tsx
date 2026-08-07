@@ -19,7 +19,7 @@ export function ChatBubble({ role, children }: ChatBubbleProps) {
         className={`max-w-[85%] rounded-lg px-4 py-2 text-sm leading-relaxed break-words ${
           isHost
             ? 'bg-brand-600 text-white rounded-br-sm'
-            : 'bg-warm-100 dark:bg-warm-800 text-warm-900 dark:text-warm-100 rounded-bl-sm'
+            : 'bg-warm-100 text-warm-900 rounded-bl-sm'
         }`}
       >
         {children}

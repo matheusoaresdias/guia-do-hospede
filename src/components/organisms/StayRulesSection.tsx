@@ -17,7 +17,7 @@ export function StayRulesSection({ property }: StayRulesSectionProps) {
       <SectionTitle id="rules-heading">Regras e comodidades</SectionTitle>
 
       <div>
-        <h3 className="text-base font-medium text-warm-800 dark:text-warm-200 mb-3">
+        <h3 className="text-base font-medium text-warm-800 mb-3">
           Horários
         </h3>
         <InfoRow label="Check-in" value={rules.check_in_time} />
@@ -25,7 +25,7 @@ export function StayRulesSection({ property }: StayRulesSectionProps) {
       </div>
 
       <div>
-        <h3 className="text-base font-medium text-warm-800 dark:text-warm-200 mb-3">
+        <h3 className="text-base font-medium text-warm-800 mb-3">
           Políticas
         </h3>
         <PolicyRow
@@ -49,7 +49,7 @@ export function StayRulesSection({ property }: StayRulesSectionProps) {
 
       {trueAmenities.length > 0 && (
         <div>
-          <h3 className="text-base font-medium text-warm-800 dark:text-warm-200 mb-3">
+          <h3 className="text-base font-medium text-warm-800 mb-3">
             Comodidades
           </h3>
           <div className="flex flex-wrap gap-2">

@@ -42,17 +42,17 @@ export function PropertyHero({ property }: PropertyHeroProps) {
       )}
 
       <div>
-        <p className="text-sm font-medium text-brand-600 dark:text-brand-400">
+        <p className="text-sm font-medium text-brand-600">
           {property.property_type} em {property.address.city},{" "}
           {property.address.state}
         </p>
         <h1
           id="property-heading"
-          className="text-2xl font-semibold text-warm-900 dark:text-warm-100"
+          className="text-2xl font-semibold text-warm-900"
         >
           {property.name}
         </h1>
-        <p className="text-sm text-warm-600 dark:text-warm-400">
+        <p className="text-sm text-warm-600">
           {capacityText}
         </p>
       </div>

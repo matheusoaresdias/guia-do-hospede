@@ -1,29 +1,60 @@
 @import "tailwindcss";
 
+/*
+ * Paleta oficial da Seazone. Os nomes de token (brand-*, warm-*) não mudaram —
+ * só os valores — para não tocar em nenhum componente que já usa
+ * bg-brand-600/text-warm-900/etc. Âncoras exatas da tabela oficial, marcadas
+ * abaixo; degraus sem âncora (extremos claros da escala) são interpolação
+ * linear em RGB até o branco, não valores da Seazone.
+ *
+ * brand-600 = primary-theme-highlight (#0D4BD0, "azul de ação") — cor de CTA
+ * escolhida (a tabela também lista #F1605D como "CTA principal"; optamos por
+ * azul porque domina o resto da identidade — primary-theme, tertiary-theme).
+ * brand-700 = primary-theme-hover / content-theme-highlight (#3758A6) — é
+ * mais claro que o brand-600 em luminância; a Seazone rotula assim
+ * explicitamente como hover, então o botão primário CLAREIA no hover em vez
+ * de escurecer. Intencional, não é bug.
+ *
+ * Sem modo escuro: a paleta da Seazone é só clara (fundo #EBEBF5, cards
+ * brancos, texto quase preto) — todo `dark:` foi removido do app.
+ */
 @theme {
-  --color-brand-50: #f0f9f9;
-  --color-brand-100: #d9efef;
-  --color-brand-200: #b3dfdf;
-  --color-brand-300: #80c7c7;
-  --color-brand-400: #4da6a6;
-  --color-brand-500: #2d8a8a;
-  --color-brand-600: #1a6e6e;
-  --color-brand-700: #0d5252;
-  --color-brand-800: #0a3f3f;
-  --color-brand-900: #082e2e;
-  --color-brand-950: #041a1a;
+  --color-brand-50: #f0f4fc;
+  --color-brand-100: #dde6f8;
+  --color-brand-200: #bbcdf2;
+  --color-brand-300: #95b0ea;
+  --color-brand-400: #698fe2;
+  --color-brand-500: #3d6fd9;
+  --color-brand-600: #0d4bd0; /* primary-theme-highlight — azul de ação / CTA */
+  --color-brand-700: #3758a6; /* primary-theme-hover — hover (mais claro, de propósito) */
+  --color-brand-800: #1f346e;
+  --color-brand-900: #0c1640; /* primary-theme-new */
+  --color-brand-950: #011337; /* primary-theme */
 
-  --color-warm-50: #fafaf8;
-  --color-warm-100: #f5f3ef;
-  --color-warm-200: #e8e4dc;
-  --color-warm-300: #d6d0c3;
-  --color-warm-400: #bfb7a7;
-  --color-warm-500: #a69c8a;
-  --color-warm-600: #8c8270;
-  --color-warm-700: #706757;
-  --color-warm-800: #5c5447;
-  --color-warm-900: #4a4339;
-  --color-warm-950: #28241e;
+  --color-warm-50: #fafafa; /* secondary-theme-new — fundo alternativo */
+  --color-warm-100: #ebebf5; /* background-theme — fundo da aplicação */
+  --color-warm-200: #e1e2e5; /* border-primary-theme-new — bordas suaves */
+  --color-warm-300: #d9dcdf; /* border-primary-theme — bordas */
+  --color-warm-400: #afb0b2; /* secondary-placeholder-theme */
+  --color-warm-500: #7d7d80; /* placeholder-theme */
+  --color-warm-600: #62656f; /* content-theme-secondary — texto cinza */
+  --color-warm-700: #4b4b4d; /* title-field-theme — títulos de campos */
+  --color-warm-800: #394760; /* content-theme — texto secundário */
+  --color-warm-900: #19191a; /* text-theme — texto principal */
+  --color-warm-950: #101011;
+
+  /* Estados semânticos — mesmos tokens da tabela oficial. *-soft é tinta
+     clara derivada (não está na tabela) para fundo de banner/badge. */
+  --color-error: #ff2732; /* error-theme */
+  --color-error-hover: #d12029;
+  --color-error-soft: #ffe9eb;
+  --color-error-border: #ffc3c6;
+  --color-success: #047755; /* success-theme */
+  --color-success-hover: #036246;
+  --color-success-soft: #e6f1ee;
+  --color-success-border: #b9d9cf;
+  --color-alert: #ff9900; /* alert-theme */
+  --color-alert-soft: #fff3e0;
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);

@@ -24,12 +24,12 @@ export function CopyableValue({ value, label }: CopyableValueProps) {
     typeof navigator !== "undefined" && !!navigator.clipboard?.writeText;
 
   return (
-    <div className="flex items-center gap-3 p-3 rounded-lg bg-warm-100 dark:bg-warm-800 min-h-[44px]">
+    <div className="flex items-center gap-3 p-3 rounded-lg bg-warm-100 min-h-[44px]">
       <div className="flex-1 min-w-0">
-        <span className="block text-sm text-warm-500 dark:text-warm-400">
+        <span className="block text-sm text-warm-500">
           {label}
         </span>
-        <span className="block font-mono text-base text-warm-900 dark:text-warm-100 truncate">
+        <span className="block font-mono text-base text-warm-900 truncate">
           {value}
         </span>
       </div>

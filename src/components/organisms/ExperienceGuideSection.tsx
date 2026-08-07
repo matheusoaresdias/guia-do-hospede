@@ -92,11 +92,11 @@ export function ExperienceGuideSection({ code }: ExperienceGuideSectionProps) {
         <div>
           <h2
             id="experience-heading"
-            className="text-2xl font-bold text-warm-900 dark:text-warm-100"
+            className="text-2xl font-bold text-warm-900"
           >
             Experiências no bairro
           </h2>
-          <p className="text-sm text-warm-500 dark:text-warm-400 mt-1">
+          <p className="text-sm text-warm-500 mt-1">
             Estamos preparando recomendações personalizadas para a sua
             estadia...
           </p>
@@ -146,19 +146,19 @@ export function ExperienceGuideSection({ code }: ExperienceGuideSectionProps) {
       <section aria-labelledby="experience-heading" className="space-y-4">
         <h2
           id="experience-heading"
-          className="text-2xl font-bold text-warm-900 dark:text-warm-100"
+          className="text-2xl font-bold text-warm-900"
         >
           Experiências no bairro
         </h2>
 
-        <div className="rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/30 p-5 text-center">
-          <p className="text-red-700 dark:text-red-300 text-sm mb-4">
+        <div className="rounded-lg border border-error-border bg-error-soft p-5 text-center">
+          <p className="text-error text-sm mb-4">
             {state.message}
           </p>
           <button
             type="button"
             onClick={retry}
-            className="inline-flex items-center gap-2 rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 transition-colors"
+            className="inline-flex items-center gap-2 rounded-md bg-error px-4 py-2 text-sm font-medium text-white hover:bg-error-hover transition-colors"
           >
             Tentar novamente
           </button>
@@ -177,22 +177,22 @@ export function ExperienceGuideSection({ code }: ExperienceGuideSectionProps) {
       <div>
         <h2
           id="experience-heading"
-          className="text-2xl font-bold text-warm-900 dark:text-warm-100"
+          className="text-2xl font-bold text-warm-900"
         >
           Experiências no bairro
         </h2>
       </div>
 
       {/* Mensagem de boas-vindas */}
-      <div className="prose prose-sm dark:prose-invert max-w-none">
-        <p className="text-warm-800 dark:text-warm-200 leading-relaxed">
+      <div className="prose prose-sm max-w-none">
+        <p className="text-warm-800 leading-relaxed">
           {guide.welcome_message}
         </p>
       </div>
 
       {/* Restaurantes */}
       <div className="space-y-3">
-        <h3 className="text-lg font-semibold text-warm-900 dark:text-warm-100">
+        <h3 className="text-lg font-semibold text-warm-900">
           🍽️ Restaurantes
         </h3>
         <div className="grid gap-3">
@@ -209,7 +209,7 @@ export function ExperienceGuideSection({ code }: ExperienceGuideSectionProps) {
 
       {/* Atrações */}
       <div className="space-y-3">
-        <h3 className="text-lg font-semibold text-warm-900 dark:text-warm-100">
+        <h3 className="text-lg font-semibold text-warm-900">
           🏛️ Atrações
         </h3>
         <div className="grid gap-3">
@@ -226,7 +226,7 @@ export function ExperienceGuideSection({ code }: ExperienceGuideSectionProps) {
 
       {/* Essenciais */}
       <div className="space-y-3">
-        <h3 className="text-lg font-semibold text-warm-900 dark:text-warm-100">
+        <h3 className="text-lg font-semibold text-warm-900">
           🏪 Serviços essenciais
         </h3>
         <div className="grid gap-3 sm:grid-cols-2">
@@ -247,11 +247,11 @@ export function ExperienceGuideSection({ code }: ExperienceGuideSectionProps) {
       </div>
 
       {/* Dica sazonal */}
-      <div className="rounded-lg bg-brand-50 dark:bg-brand-950/30 border border-brand-200 dark:border-brand-800 p-4">
-        <p className="text-sm font-medium text-brand-700 dark:text-brand-300 mb-1">
+      <div className="rounded-lg bg-brand-50 border border-brand-200 p-4">
+        <p className="text-sm font-medium text-brand-700 mb-1">
           🌦️ Dica da estação
         </p>
-        <p className="text-sm text-brand-800 dark:text-brand-200 leading-relaxed">
+        <p className="text-sm text-brand-800 leading-relaxed">
           {guide.seasonal_tip}
         </p>
       </div>
