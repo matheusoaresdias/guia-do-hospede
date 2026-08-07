@@ -4,11 +4,11 @@ Cada imóvel tem um link único com o guia da estadia: dados de acesso, regras, 
 experiências do bairro gerado por IA e um assistente que responde perguntas sobre aquele
 imóvel específico.
 
-**Aplicação:** https://guia-hospede-seazone.vercel.app
-**Exemplos:** [`/FLN001`](https://guia-hospede-seazone.vercel.app/FLN001) (Florianópolis/SC) ·
-[`/GRM001`](https://guia-hospede-seazone.vercel.app/GRM001) (Gramado/RS) ·
-[`/UBA001`](https://guia-hospede-seazone.vercel.app/UBA001) (Ubatuba/SP) ·
-[`/XXX999`](https://guia-hospede-seazone.vercel.app/XXX999) (código inexistente)
+**Aplicação:** https://guia-do-hospede-seazone.vercel.app
+**Exemplos:** [`/FLN001`](https://guia-do-hospede-seazone.vercel.app/FLN001) (Florianópolis/SC) ·
+[`/GRM001`](https://guia-do-hospede-seazone.vercel.app/GRM001) (Gramado/RS) ·
+[`/UBA001`](https://guia-do-hospede-seazone.vercel.app/UBA001) (Ubatuba/SP) ·
+[`/XXX999`](https://guia-do-hospede-seazone.vercel.app/XXX999) (código inexistente)
 
 Teste técnico Seazone — AI Builder.
 
@@ -151,10 +151,15 @@ O plano de execução, com os pontos de decisão apresentados antes de implement
 ## Limitação conhecida
 
 **Os restaurantes sugeridos não são verificados contra uma fonte externa.** O guia usa o
-conhecimento do modelo com um prompt restritivo, e isso acerta consistentemente atrações e
-serviços essenciais (Rua Coberta, Lago Negro e Mini Mundo em Gramado; Lagoa da Conceição,
-UFSC e Hospital Universitário em Florianópolis) — mas ainda escapa um nome de restaurante
-plausível e inventado a cada geração.
+conhecimento do modelo com um prompt restritivo, e o resultado é desigual por categoria:
+
+- **Atrações e serviços essenciais saem consistentemente reais** — Rua Coberta, Lago Negro e
+  Mini Mundo em Gramado; Lagoa da Conceição, UFSC, Mercado Público e Hospital Universitário em
+  Florianópolis.
+- **Restaurantes são o ponto fraco, e a taxa de acerto varia entre gerações.** Em algumas o
+  modelo traz casas reais e reconhecíveis (Box 32, Armazém Vieira); em outras a maioria dos
+  nomes é plausível e inventada. Endurecer o prompt melhorou, mas não resolveu — inclusive
+  porque listar exemplos de nomes inventados acabou ancorando o modelo neles.
 
 É o principal débito técnico do projeto e foi uma decisão consciente de escopo, não um
 descuido: validar cada lugar contra a Google Places API resolveria, ao custo de mais uma
