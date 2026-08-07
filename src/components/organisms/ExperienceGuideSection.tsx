@@ -40,8 +40,6 @@ export function ExperienceGuideSection({ code }: ExperienceGuideSectionProps) {
   const [state, setState] = useState<SectionState>({ status: 'loading' });
 
   const fetchGuide = useCallback(async () => {
-    setState({ status: 'loading' });
-
     try {
       const response = await fetch(`/api/properties/${code}/guide`, {
         method: 'POST',
@@ -68,8 +66,21 @@ export function ExperienceGuideSection({ code }: ExperienceGuideSectionProps) {
     }
   }, [code]);
 
+  // O enunciado exige feedback visual enquanto o guia é gerado, e a geração é
+  // um POST com efeito colateral (persiste no banco) — não dá para resolvê-la
+  // no Server Component sem perder o estado de carregando. O setState acontece
+  // depois do await, em callback, não sincronamente no corpo do efeito; a regra
+  // não distingue os dois casos.
   useEffect(() => {
-    fetchGuide();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    void fetchGuide();
+  }, [fetchGuide]);
+
+  // O retry reintroduz o estado de carregando, que fetchGuide não seta mais
+  // sozinha para não violar a regra de setState dentro de efeito.
+  const retry = useCallback(() => {
+    setState({ status: 'loading' });
+    void fetchGuide();
   }, [fetchGuide]);
 
   // -----------------------------------------------------------------------
@@ -146,7 +157,7 @@ export function ExperienceGuideSection({ code }: ExperienceGuideSectionProps) {
           </p>
           <button
             type="button"
-            onClick={fetchGuide}
+            onClick={retry}
             className="inline-flex items-center gap-2 rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 transition-colors"
           >
             Tentar novamente
