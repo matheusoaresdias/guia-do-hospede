@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { findPropertyByCode } from "@/server/repositories/properties";
 import { GuidebookTemplate } from "@/components/templates/GuidebookTemplate";
 import { ExperienceGuideSection } from "@/components/organisms/ExperienceGuideSection";
+import { AssistantChat } from "@/components/organisms/AssistantChat";
 
 interface PageProps {
   params: Promise<{ code: string }>;
@@ -34,6 +35,7 @@ export default async function PropertyPage({ params }: PageProps) {
     <GuidebookTemplate
       property={property}
       experienceSlot={<ExperienceGuideSection code={code} />}
+      assistantSlot={<AssistantChat propertyCode={code} />}
     />
   );
 }
