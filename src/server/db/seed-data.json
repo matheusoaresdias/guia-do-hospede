@@ -1,0 +1,167 @@
+[
+  {
+    "code": "FLN001",
+    "name": "Apartamento Beira-Mar Florianópolis",
+    "property_type": "Apartamento",
+    "bedroom_quantity": 2,
+    "bathroom_quantity": 1,
+    "guest_capacity": 4,
+    "address": {
+      "street": "Rua Lauro Linhares",
+      "number": "589",
+      "complement": "Apto 301",
+      "neighborhood": "Trindade",
+      "city": "Florianópolis",
+      "state": "SC",
+      "postal_code": "88036-001"
+    },
+    "operational": {
+      "wifi_network": "SeaHome_FLN001",
+      "wifi_password": "floripa2024",
+      "is_self_checkin": true,
+      "property_access_type": "smart_lock",
+      "property_access_instructions": "Use o código 4521 na fechadura eletrônica",
+      "property_password": "4521",
+      "has_parking_spot": true,
+      "parking_spot_identifier": "Vaga 12 — subsolo B1",
+      "parking_spot_instructions": "Portão lateral, código 7890 no interfone"
+    },
+    "rules": {
+      "check_in_time": "15:00",
+      "check_out_time": "11:00",
+      "allow_pet": false,
+      "smoking_permitted": false,
+      "suitable_for_children": true,
+      "suitable_for_babies": true,
+      "events_permitted": false
+    },
+    "amenities": {
+      "wifi": true,
+      "tv": true,
+      "air_conditioning": true,
+      "kitchen": true,
+      "washing_machine": true,
+      "elevator": true,
+      "balcony": true
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800"
+    ],
+    "host": {
+      "name": "Ana Paula",
+      "phone": "+5548991234567"
+    }
+  },
+  {
+    "code": "GRM001",
+    "name": "Chalé Serra Gramado",
+    "property_type": "Casa",
+    "bedroom_quantity": 3,
+    "bathroom_quantity": 2,
+    "guest_capacity": 6,
+    "address": {
+      "street": "Rua das Hortênsias",
+      "number": "220",
+      "complement": null,
+      "neighborhood": "Planalto",
+      "city": "Gramado",
+      "state": "RS",
+      "postal_code": "95670-000"
+    },
+    "operational": {
+      "wifi_network": "ChaletSerra_GRM",
+      "wifi_password": "gramado@2024",
+      "is_self_checkin": false,
+      "property_access_type": "keybox",
+      "property_access_instructions": "A chave está no cofre na entrada. Código: 1983",
+      "property_password": "1983",
+      "has_parking_spot": true,
+      "parking_spot_identifier": null,
+      "parking_spot_instructions": "Garagem própria para 2 carros"
+    },
+    "rules": {
+      "check_in_time": "14:00",
+      "check_out_time": "12:00",
+      "allow_pet": true,
+      "smoking_permitted": false,
+      "suitable_for_children": true,
+      "suitable_for_babies": false,
+      "events_permitted": false
+    },
+    "amenities": {
+      "wifi": true,
+      "tv": true,
+      "kitchen": true,
+      "bbq_grill": true,
+      "balcony": true,
+      "dishwasher": true
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?w=800",
+      "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=800",
+      "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=800"
+    ],
+    "host": {
+      "name": "Carlos Eduardo",
+      "phone": "+5554998765432"
+    }
+  },
+  {
+    "code": "UBA001",
+    "name": "Casa Praia Grande Ubatuba",
+    "property_type": "Casa",
+    "bedroom_quantity": 4,
+    "bathroom_quantity": 3,
+    "guest_capacity": 8,
+    "address": {
+      "street": "Rua da Praia Grande",
+      "number": "1450",
+      "complement": "Casa 2",
+      "neighborhood": "Praia Grande",
+      "city": "Ubatuba",
+      "state": "SP",
+      "postal_code": "11680-000"
+    },
+    "operational": {
+      "wifi_network": "CasaUbatuba_UBA001",
+      "wifi_password": "praiagrande2026",
+      "is_self_checkin": true,
+      "property_access_type": "smart_lock",
+      "property_access_instructions": "Use o código 8074 na fechadura do portão e a mesma senha na porta principal",
+      "property_password": "8074",
+      "has_parking_spot": true,
+      "parking_spot_identifier": null,
+      "parking_spot_instructions": "Garagem coberta para 2 carros, dentro do terreno"
+    },
+    "rules": {
+      "check_in_time": "15:00",
+      "check_out_time": "11:00",
+      "allow_pet": true,
+      "smoking_permitted": false,
+      "suitable_for_children": true,
+      "suitable_for_babies": true,
+      "events_permitted": false
+    },
+    "amenities": {
+      "wifi": true,
+      "tv": true,
+      "air_conditioning": true,
+      "kitchen": true,
+      "washing_machine": true,
+      "pool": true,
+      "bbq_grill": true,
+      "balcony": true
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800",
+      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800",
+      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800"
+    ],
+    "host": {
+      "name": "Mariana Costa",
+      "phone": "+5512997654321"
+    }
+  }
+]
