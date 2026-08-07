@@ -1,0 +1,6 @@
+node_modules
+.next
+.git
+docs/*.pdf
+.claude/skills/implement-with-deepseek/snapshots
+.claude/skills/implement-with-deepseek/respostas
