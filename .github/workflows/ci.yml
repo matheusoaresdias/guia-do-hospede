@@ -38,6 +38,14 @@ jobs:
           node-version: 24
           cache: npm
 
+      - name: Debug
+        run: |
+          node -v
+          npm -v
+          git status
+          git rev-parse HEAD
+          ls
+
       - name: Instalar dependências
         run: npm ci
 
