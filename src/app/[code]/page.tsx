@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { findPropertyByCode } from "@/server/repositories/properties";
 import { GuidebookTemplate } from "@/components/templates/GuidebookTemplate";
+import { ExperienceGuideSection } from "@/components/organisms/ExperienceGuideSection";
 
 interface PageProps {
   params: Promise<{ code: string }>;
@@ -32,7 +33,7 @@ export default async function PropertyPage({ params }: PageProps) {
   return (
     <GuidebookTemplate
       property={property}
-      // experienceSlot e assistantSlot virão na próxima leva
+      experienceSlot={<ExperienceGuideSection code={code} />}
     />
   );
 }
