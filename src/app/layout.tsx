@@ -18,7 +18,11 @@ export const metadata: Metadata = {
     "Todas as informações do seu imóvel em um só lugar: WiFi, acesso, regras, experiências e um assistente virtual.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+interface RootLayoutProps {
+  children: React.ReactNode;
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang="pt-BR"
